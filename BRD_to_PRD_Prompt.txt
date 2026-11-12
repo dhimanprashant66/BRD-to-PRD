@@ -1,0 +1,84 @@
+BRD to PRD | Copy-and-paste prompt
+
+1. Upload your BRD in a new AI chat, or paste the BRD if uploads are unavailable.
+2. Copy everything below the divider into that chat.
+3. Replace the example request at the end with your preferred scope, then send.
+
+---
+
+# BRD to PRD
+
+Start the workflow when the user types `!draft-prd` at the beginning of a message, optionally followed by scope instructions. The prefix is a plain-text prompt. Use one supplied BRD as the business baseline. Produce only the requested PRD or PRDs. Use feature and phase mapping as planning context for those documents.
+
+## 1. Read and map the BRD
+
+If the BRD is missing, ask the user to upload it or paste its contents. If pages, tables, or attachments materially affecting scope are unavailable or unreadable, identify them and request the missing material. When the user supplies multiple BRD versions, ask which is authoritative if that is unclear.
+
+Record the source title and version, objectives, users, features, business rules, constraints, and any release plan. Preserve source requirement IDs. Where IDs are absent, assign stable working IDs and cite the heading, page when reliable, or table row so the reader can find the source. Distinguish BRD facts, decisions confirmed in conversation, proposals, and unresolved items. Flag conflicts instead of silently selecting a version of the requirement.
+
+## 2. Agree the PRD set
+
+Honor the user's requested structure. If the structure is unclear, recommend one option and explain the trade-off using the actual BRD:
+
+| Structure | When to use it |
+| --- | --- |
+| One consolidated PRD | Features ship together or form one tightly coupled user journey. Use feature or phase sections inside the document. |
+| One PRD per feature | Features have distinct behaviors, owners, or delivery paths. |
+| One PRD per phase | Each release has a coherent outcome and a set of features that must work together. |
+| One PRD per feature within a phase | Each feature needs its own document, with phase and dependency labels. If the same feature spans phases, split it only where each increment has a distinct outcome and acceptance criteria. |
+
+For multiple PRDs, propose a compact coverage map with PRD ID and title, feature IDs, phase, source BRD IDs, dependencies, and status. Keep future phases visible. Ask whether to draft the full set now or a selected phase or feature first if the user has not specified. Treat the user's clear instructions as confirmation. When the grouping or delivery order is proposed by the skill, confirm it before drafting. Use proposed phase labels rather than inventing release dates or commitments.
+
+## 3. Interview the user
+
+Ask up to five targeted questions per round, grouped by the current feature or phase. Use the BRD first and avoid asking the user to repeat it. Ask one decision per question. Where supported, offer single-select, multi-select, Other, and Not sure yet. Otherwise offer short lettered options or a focused free-text question. For each material gap, explain briefly what the answer changes.
+
+Probe the decisions that would change the selected PRDs: actor and permissions, triggers and preconditions, happy path and exceptions, business rule boundaries, data and integrations, dependencies between phases, measurable success, and acceptance conditions. Challenge contradictions and ambiguous claims with concrete scenarios. For example, if a later phase relies on a capability absent from the earlier phase, ask whether to move the dependency forward, defer the feature, or define an interim path.
+
+If a decision materially affects behavior or scope, wait for the answer or ask whether to proceed with a specific proposed assumption or leave it open. Capture nonblocking unknowns as TBD. Continue discovery only while answers would change the current PRD set. For phased drafting, defer questions that only affect a later phase until that phase is selected.
+
+## 4. Draft the selected PRD or PRDs
+
+Produce a separate, self-contained document for each agreed PRD. Use the following eight headings in this order for consolidated, feature, and phased PRDs. Preserve every heading. Use TBD for unknowns and state when a field does not apply. Use a different template only when the user explicitly requests it for that conversion.
+
+### 1. Metadata & Ownership
+
+Include the document title, stable PRD ID, author or Product Manager, cross-functional leads for Design (UX/UI), Engineering (Tech Lead), QA, and Marketing or Support, and status and version with a short version history. Record the target launch date, milestone, or release window when known. Identify the source BRD title and version and related PRDs. Default to Draft and leave unconfirmed owners, status changes, and launch commitments open.
+
+### 2. Context & Strategic Overview
+
+Explain the objective and its link to company or team goals. Describe the problem, who experiences it, and the supporting data, interviews, or research available. Flag evidence gaps. Summarize the proposed solution in two to three sentences. State the included feature or phase scope and explicitly list excluded or deferred work. For a phased increment, describe what users can do before and after the release.
+
+### 3. Target Users & User Stories
+
+Identify target personas and their Jobs To Be Done or user stories. Use “As a [type of user], I want to [action] so that [benefit]” where helpful. Describe critical user journeys step by step, including actors, triggers, preconditions, primary paths, alternate paths, and material error or permission states.
+
+### 4. Functional & Non-Functional Requirements
+
+Group functional requirements by user journey or feature module. Give each requirement a stable ID, observable behavior, priority where known, source BRD ID or confirmed decision, and testable acceptance criteria. Cover relevant business rules, data, integrations, and negative cases. Include relevant NFRs for performance and latency, security and compliance, and reliability and scale, including applicable privacy, role-based access, uptime, error handling, and edge cases. Include accessibility where relevant. State how each material requirement is verified. Use Given/When/Then where it clarifies the definition of done. Keep BRD-to-PRD traceability in this section, using a source column or a short coverage table when useful. Mark business-only, deferred, or unresolved items explicitly.
+
+### 5. Design & User Experience
+
+Include links to supplied Figma designs, user flows, wireframes, or mockups. When designs are missing and a visual would clarify behavior, include a clearly labeled proposed low-fidelity sketch or flow if supported. Record key error messages, tooltips, and CTA labels when finalized. Label suggested copy as proposed and unknown design references as TBD.
+
+### 6. Metrics & Success Criteria
+
+Define business and product KPIs with their calculation, baseline, target, measurement window, and owner where known. Describe the instrumentation needed to measure them, including relevant events, triggers, properties, analytics, or logging requirements. Distinguish confirmed targets from proposals and leave unknown values open.
+
+### 7. Assumptions, Dependencies & Risks
+
+List assumptions, technical, design, and cross-team prerequisites, and risks with mitigations. Include impact, owner, and status where known. For phased work, identify what the selected phase depends on and what it enables for later phases.
+
+### 8. Open Questions & Decision Log
+
+List unresolved questions with owner or owner role, timing (before or during build), impact, and blocking status. Log major decisions and trade-offs with date or timestamp when known, rationale, and affected requirements or PRDs. Distinguish confirmed decisions from proposals.
+
+Across several PRDs, give each shared requirement a single owning PRD and reference it from dependent documents. Use stable IDs across phases. Flag uncovered BRD requirements, overlaps, mismatched terminology, and prerequisites scheduled after their dependents. Do not invent evidence, technical constraints, approvals, estimates, or scope. Label a proposed product behavior with no direct BRD source and show which decision supports it.
+
+## 5. Deliver and continue
+
+If file creation is available, deliver the requested PRDs as separate editable documents, defaulting to DOCX unless the user prefers another format. Otherwise provide clearly separated copy-ready PRDs. For multiple PRDs, include the coverage map in the delivery summary so the user can see which documents are drafted, pending, or blocked.
+
+When drafting in phases, stop after the requested phase or feature. Carry forward the source map, decisions, shared dependencies, and IDs into the next selected PRD. If the user changes an earlier decision, identify the affected documents and update the ones requested.
+
+!draft-prd Create one PRD per feature. Start with Phase 1 only and ask me about gaps before drafting.
